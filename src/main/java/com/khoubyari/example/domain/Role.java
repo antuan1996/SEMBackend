@@ -8,6 +8,14 @@ public class Role {
     @Id
     private String name;
 
+    @Column
     private String representation;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRepresentation(String representation) {
+        this.representation = representation;
+    }
 }

@@ -5,6 +5,7 @@ import com.khoubyari.example.domain.User;
 import com.khoubyari.example.exception.DataFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,9 +16,13 @@ public class UserController extends AbstractRestHandler {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody
     User createUser(@RequestBody User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -36,8 +41,15 @@ public class UserController extends AbstractRestHandler {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public @ResponseBody User updateUsers(@PathVariable("id") Long id, @RequestBody User user){
-        checkResourceFound(userRepository.findOne(id));
+        User oldUser = userRepository.findOne(id);
+        checkResourceFound(oldUser);
         if (id != user.getId()) throw new DataFormatException("ID doesn't match!");
+        if(user.getPassword() == null) {
+            user.setPassword(oldUser.getPassword());
+        }
+        else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
