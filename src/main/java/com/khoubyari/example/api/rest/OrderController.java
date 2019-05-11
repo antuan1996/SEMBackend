@@ -39,6 +39,9 @@ public class OrderController extends AbstractRestHandler {
     public @ResponseBody Order updateOrders(@PathVariable("id") Long id, @RequestBody Order order){
         checkResourceFound(orderRepository.findOne(id));
         if (id != order.getId()) throw new DataFormatException("ID doesn't match!");
+        Order oldOrder = orderRepository.findOne(order.getId());
+        LocalDateTime oldTime = LocalDateTime.parse(oldOrder.getCreatedDatetime());
+        order.setCreatedDatetime(oldTime);
         return orderRepository.save(order);
     }
 

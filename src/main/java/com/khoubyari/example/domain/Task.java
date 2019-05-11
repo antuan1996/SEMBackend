@@ -5,7 +5,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Table(name = "task")
@@ -50,8 +52,8 @@ public class Task {
     @Column(name="creator_id")
     private Long creatorId;
 
-    @OneToMany
-    private Set<Comment> commentSet;
+    @OneToMany(mappedBy="task")
+    private Collection<Comment> commentSet = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name="order_id", updatable=false, insertable=false)
@@ -76,15 +78,15 @@ public class Task {
         return taskStatus;
     }
 
-    public LocalDate getCreatedDate() {
-        return createdDate;
+    public String getCreatedDate() {
+        return createdDate.format(DateTimeFormatter.ISO_DATE);
     }
 
     public Long getOrderId() {
         return orderId;
     }
 
-    public Set<Comment> getCommentSet() {
+    public Collection<Comment> getCommentSet() {
         return commentSet;
     }
 
@@ -98,5 +100,9 @@ public class Task {
 
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 }

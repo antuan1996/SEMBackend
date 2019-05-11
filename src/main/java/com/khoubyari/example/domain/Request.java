@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "request_table")
@@ -42,8 +43,8 @@ public class Request {
         return description;
     }
 
-    public LocalDate getExpectedDueDate() {
-        return expectedDueDate;
+    public String getExpectedDueDate() {
+        return expectedDueDate.format(DateTimeFormatter.ISO_DATE);
     }
 
     public String getContactEmail() {

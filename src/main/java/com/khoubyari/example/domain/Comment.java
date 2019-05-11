@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "comment_table")
@@ -43,8 +44,9 @@ public class Comment {
         return text;
     }
 
-    public LocalDateTime getCreatedDatetime() {
-        return createdDatetime;
+    public String getCreatedDatetime()
+    {
+        return createdDatetime.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     public void setCreatedDatetime(LocalDateTime createdDatetime) {
@@ -57,5 +59,9 @@ public class Comment {
 
     public Long getTaskId() {
         return taskId;
+    }
+
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 }
