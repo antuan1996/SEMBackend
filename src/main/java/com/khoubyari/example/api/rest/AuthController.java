@@ -63,12 +63,15 @@ public class AuthController {
             newUser.setEmail(data.getEmail());
             newUser.setPassword(passwordEncoder.encode(data.getPassword()));
             newUser.setRoleId("customer");
+            newUser.setTokenExpired(false);
+            newUser.setEnabled(true);
             newUser = users.save(newUser);
             String username = newUser.getUsername();
             String token = jwtTokenProvider.createToken(username, newUser.getRoles());
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
             model.put("token", token);
+            model.put("roleId", newUser.getRoleId());
             return ok(model);
     }
 }

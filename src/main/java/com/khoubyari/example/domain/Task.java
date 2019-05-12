@@ -29,7 +29,7 @@ public class Task {
     @Column()
     private String title;
 
-    @Column()
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @Column()

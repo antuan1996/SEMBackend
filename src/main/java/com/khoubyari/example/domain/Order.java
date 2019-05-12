@@ -1,9 +1,12 @@
 package com.khoubyari.example.domain;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +18,8 @@ public class Order {
     public enum OrderStatus {
         CONFIRMED,
         INPROGRESS,
-        DONE
+        DONE,
+        CANCELLED
     }
 
     @Id
@@ -25,8 +29,15 @@ public class Order {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition="TEXT")
     private String description;
+
+    @Email
+    @Column
+    private String customerEmail;
+
+    @Column()
+    private LocalDate expectedDueDate;
 
     @Column
     private LocalDateTime createdDatetime;
@@ -56,6 +67,14 @@ public class Order {
 
     public void setCreatedDatetime(LocalDateTime createdDatetime) {
         this.createdDatetime = createdDatetime;
+    }
+
+    public String getExpectedDueDate() {
+        return expectedDueDate.format(DateTimeFormatter.ISO_DATE);
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 }
 
