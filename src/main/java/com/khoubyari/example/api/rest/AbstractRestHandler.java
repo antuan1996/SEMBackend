@@ -20,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
  * It contains exception mapping and other common REST API functionality
  */
 //@ControllerAdvice?
-public abstract class AbstractRestHandler implements ApplicationEventPublisherAware {
+
+//TODO: добавить логи на бэкенде
+
+public abstract class   AbstractRestHandler implements ApplicationEventPublisherAware {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     protected ApplicationEventPublisher eventPublisher;

@@ -52,11 +52,15 @@ public class User implements UserDetails {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @XmlTransient
     public String getRoleId() {
         return roleId;
     }
-
+    
     @XmlTransient
     public String getEmail() {
         return email;

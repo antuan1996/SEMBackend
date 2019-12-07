@@ -70,6 +70,9 @@ public class Order {
     }
 
     public String getExpectedDueDate() {
+        if(expectedDueDate == null){
+            return null;
+        }
         return expectedDueDate.format(DateTimeFormatter.ISO_DATE);
     }
 
