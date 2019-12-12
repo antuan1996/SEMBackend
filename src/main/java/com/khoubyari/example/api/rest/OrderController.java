@@ -29,7 +29,7 @@ public class OrderController extends AbstractRestHandler {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public @ResponseBody Order retrieveOrder(@PathVariable("id") Long id) throws Exception {
+    public @ResponseBody Order retrieveOrder(@PathVariable("id") Long id) {
         Order order = orderRepository.findOne(id);
         checkResourceFound(order);
         return order;
